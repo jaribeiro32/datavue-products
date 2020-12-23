@@ -186,29 +186,32 @@ new Vue({
     order: {
       dir: 1,
 
-      column: 'price'
-
+      column: "price",
     },
   },
   computed: {
     productsSorted() {
       return this.products.sort((a, b) => {
-         let left = a[this.order.column], right = b[this.order.column]; //a.name b.name
+        let left = a[this.order.column],
+          right = b[this.order.column]; //a.name b.name
 
-         return (left - right) * this.order.dir
-       });
+        if (isNaN(left) && isNaN(right)) {
+          if (left < right) return -1 * this.order.dir;
+          else if (left > right) return 1 * this.order.dir;
+          else return 0;
+        } else {
+          return (left - right) * this.order.dir;
+        }
+      });
     },
-    classes(){
-       return [
-          'sort-control',
-          this.order.dir == 1 ? 'ascending' : 'descending'
-       ]
-    }
+    classes() {
+      return ["sort-control", this.order.dir == 1 ? "ascending" : "descending"];
+    },
   },
-  methods:{
-   sortProducts(column){
+  methods: {
+    sortProducts(column) {
       this.order.column = column;
       this.order.dir = this.order.dir * -1;
-   }
-  }
+    },
+  },
 });
