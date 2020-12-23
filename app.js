@@ -204,11 +204,17 @@ new Vue({
         }
       });
     },
-    classes() {
-      return ["sort-control", this.order.dir == 1 ? "ascending" : "descending"];
+
+    sortType() {
+      return this.order.dir == 1 ? "ascending" : "descending";
     },
   },
+  /** prettier ignore */
   methods: {
+    classes(column) {
+      return ["sort-control", column == this.order.column ? this.sortType : ""];
+    },
+
     sortProducts(column) {
       this.order.column = column;
       this.order.dir = this.order.dir * -1;

@@ -40,9 +40,9 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th @click="sortProducts('name')" :class="classes">Product Name</th>
-                            <th @click="sortProducts('category')" :class="classes">Category</th>
-                            <th @click="sortProducts('price')" :class="classes">Price</th>
+                            <th @click="sortProducts('name')" :class="classes('name')">Product Name</th>
+                            <th @click="sortProducts('category')" :class="classes('category')">Category</th>
+                            <th @click="sortProducts('price')" :class="classes('price')">Price</th>
                         </tr>
                     </thead>
                     <tbody>
