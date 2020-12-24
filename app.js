@@ -188,6 +188,10 @@ new Vue({
 
       column: "price",
     },
+
+    filters: {
+      name: "",
+    },
   },
   computed: {
     productsSorted() {
@@ -208,6 +212,10 @@ new Vue({
     sortType() {
       return this.order.dir == 1 ? "ascending" : "descending";
     },
+
+    whenSearching() {
+      return this.filters.name.length > 0;
+    },
   },
   /** prettier ignore */
   methods: {
@@ -218,6 +226,10 @@ new Vue({
     sortProducts(column) {
       this.order.column = column;
       this.order.dir = this.order.dir * -1;
+    },
+
+    clearText() {
+      this.filters.name = "";
     },
   },
 });
