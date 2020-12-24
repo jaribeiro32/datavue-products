@@ -191,7 +191,11 @@ new Vue({
 
     filters: {
       name: "",
+
+      keywords: "",
     },
+
+    isSearching: false,
   },
   computed: {
     productsSorted() {
@@ -213,22 +217,23 @@ new Vue({
       return this.order.dir == 1 ? "ascending" : "descending";
     },
 
-    whenSearching() {
-      return this.filters.name.length > 0;
-    },
-
     filteredProducts() {
       let products = this.products;
 
-      if (this.filters.name > 0) {
+      if (this.filters.name) {
         let findName = new RegExp(this.filters.name, "i");
         products = products.filter((el) => el.name.match(findName));
       }
 
       return products;
     },
+
+    keywordsIsInvalid(){
+      return this.filters.keywords.length < 2;
+    }
+
   },
-  /** prettier ignore */
+
   methods: {
     classes(column) {
       return ["sort-control", column == this.order.column ? this.sortType : ""];
@@ -240,7 +245,17 @@ new Vue({
     },
 
     clearText() {
-      this.filters.name = "";
+      this.filters.name = this.filters.keywords = "";
+      this.isSearching = false;
+    },
+
+    search() {
+
+      if(!this.keywordsIsInvalid)
+{
+  this.filters.name = this.filters.keywords;
+  this.isSearching = true;
+} 
     },
   },
 });
