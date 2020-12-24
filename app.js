@@ -195,7 +195,7 @@ new Vue({
   },
   computed: {
     productsSorted() {
-      return this.products.sort((a, b) => {
+      return this.filteredProducts.sort((a, b) => {
         let left = a[this.order.column],
           right = b[this.order.column]; //a.name b.name
 
@@ -215,6 +215,17 @@ new Vue({
 
     whenSearching() {
       return this.filters.name.length > 0;
+    },
+
+    filteredProducts() {
+      let products = this.products;
+
+      if (this.filters.name > 0) {
+        let findName = new RegExp(this.filters.name, "i");
+        products = products.filter((el) => el.name.match(findName));
+      }
+
+      return products;
     },
   },
   /** prettier ignore */
